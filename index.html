@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WYSIWYE E-mail Template Creator</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="wysiwye.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div class="container">
+		<div class="ctrl-panel">
+			<h2>Settings</h2>
+			<div class="ctrl-expando">
+				<div class="arrow-right"></div>
+				<div class="expando-text">Module Styles</div>
+			</div>
+			<div class="ctrl-expando">
+				<div class="arrow-right"></div>
+				<div class="expando-text">Add Modules</div>
+			</div>
+			<div class="ctrl-expando">
+				<span class="arrow-right"></span>
+				<div class="expando-text">Global Styles</div>
+			</div>
+		</div>
+		<div class="content-panel">
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('.ctrl-expando').click(function(){
+			var arrow = $(this).find('.arrow-right');
+			if ($(arrow).hasClass('arrow-right')) {
+				$(arrow).removeClass('arrow-right').addClass('arrow-down');
+			} else {
+				$(arrow).removeClass('arrow-down').addClass('arrow-right');
+			}
+		});
+	</script>
+</body>
+</html>
