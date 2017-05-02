@@ -2,40 +2,130 @@
 <html>
 <head>
 	<title>WYSIWYE E-mail Template Creator</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="wysiwye.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="jscolor.min.js"></script>
+	<script type="text/javascript" src="wysiwye.js"></script>
+	<script type="text/javascript" src="site.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="ctrl-panel">
 			<h2>Settings</h2>
-			<div class="ctrl-expando">
-				<div class="arrow-right"></div>
+			<div class="ctrl-expando" expand-content="#expando1">
+				<div class="caret arrow-right"></div>
 				<div class="expando-text">Module Styles</div>
 			</div>
-			<div class="ctrl-expando">
-				<div class="arrow-right"></div>
+			<div id="expando1" class="expando-content" style="height: 0px;display: none;">
+				<p>No module or element selected</p>
+			</div>
+			<div class="ctrl-expando" expand-content="#expando2">
+				<div class="caret arrow-right"></div>
 				<div class="expando-text">Add Modules</div>
 			</div>
-			<div class="ctrl-expando">
-				<span class="arrow-right"></span>
+			<div id="expando2" class="expando-content" style="height: 0px;display: none;">
+				<div class="row">
+					<div class="column">
+						<div class="module-add" module="image">
+							IMAGE
+						</div>
+					</div>
+					<div class="column">
+						<div class="module-add" module="text">
+							TEXT
+						</div>
+					</div>
+					<div class="column">
+						<div class="module-add" module="button">
+							BUTTON
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column">
+						<div class="module-add" module="space">
+							SPACE
+						</div>
+					</div>
+					<div class="column">
+						<div class="module-add" module="divider">
+							DIVIDER
+						</div>
+					</div>
+					<div class="column">
+						<div class="module-add" module="columns">
+							COLUMNS
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ctrl-expando" expand-content="#expando3">
+				<span class="caret arrow-right"></span>
 				<div class="expando-text">Global Styles</div>
+			</div>
+			<div id="expando3" class="expando-content" style="height: 0px;display: none;">
+				<div class="ctrl-expando" expand-content="#expando4">
+					<span class="caret arrow-right"></span>
+					<div class="expando-text">Email Body</div>
+				</div>
+				<div id="expando4" class="expand-content" style="height: 0px;display: none;">
+					<table class="input-table">
+						<tr>
+							<td><label>Background Color</label></td>
+							<td><input id="bodybg" type="text" class="jscolor" name="bodybg" value="FFDAB5" /></td>
+						</tr>
+						<tr>
+							<td><label>Text Color</label></td>
+							<td><input id="bodytxtc" type="text" class="jscolor" name="bodytxtc" value="000000"></td>
+						</tr>
+						<tr>
+							<td><label>Link Color</label></td>
+							<td><input id="bodylnkc" type="text" class="jscolor" name="bodylnkc" value="1188e6"></td>
+						</tr>
+					</table>
+					<hr>
+					<table class="input-table">
+						<tr>
+							<td><label>Font Size</label></td>
+							<td><input id="bodyfntsize" type="text" class="input" style="width: 30px" name="bodyfntsize" value="14"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="ctrl-expando" expand-content="#expando5">
+					<span class="caret arrow-right"></span>
+					<div class="expando-text">Content Container</div>
+				</div>
+				<div id="expando5" class="expand-content" style="height: 0px;display: none;">
+					<table class="input-table">
+						<tr>
+							<td>Width</td>
+							<td><input id="ccWidth" class="input" style="width: 30px" type="text" name="ccWidth" value="600" /></td>
+						</tr>
+						<tr>
+							<td>Background Color</td>
+							<td><input id="ccbg" type="text" class="jscolor" name="ccbg" value="FFFFFF" /></td>
+						</tr>
+						<tr>
+							<td>Padding</td>
+							<td><input id="ccPadding" class="input" style="width: 30px" type="text" name="ccPadding" value="0" /></td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="content-panel">
-			
+			<div id="body">
+				<center>
+					<table id="contentContainer" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%;max-width: 600px;min-height: 400px;" align="center">
+						<tr>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
+				</center>
+			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		$('.ctrl-expando').click(function(){
-			var arrow = $(this).find('.arrow-right');
-			if ($(arrow).hasClass('arrow-right')) {
-				$(arrow).removeClass('arrow-right').addClass('arrow-down');
-			} else {
-				$(arrow).removeClass('arrow-down').addClass('arrow-right');
-			}
-		});
-	</script>
 </body>
 </html>
