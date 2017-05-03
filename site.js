@@ -1,8 +1,13 @@
-var bodyBackground, bodyTextColor, bodyLinkColor, bodyFontSize;
+var bodyBackground, bodyTextColor, bodyLinkColor, bodyFontSize, body, contentContainer, ccBackground, ccWidth, ccPadding;
 var template = null;
+
+function changeSettingsView(type) {
+
+}
+
 $(document).ready(function() {
 	//initialize gui variables
-	template = new wysiwye($('#contentContainer tr td'));
+	template = new wysiwye($('#body'));
 	bodyBackground = $('#bodybg');
 	bodyTextColor = $('#bodytxtc');
 	bodyLinkColor = $('#bodyLinkColor');
@@ -14,13 +19,13 @@ $(document).ready(function() {
 	ccPadding = $('#ccPadding');
 
 	//set variables
-	$(body).css('background', '#' + $(bodyBackground).val());
-	$(body).css('color', '#' + $(bodyTextColor).val());
-	$('#body a').css('color', '#' + $(bodyLinkColor).val());
-	$(body).css('font-size', $(bodyFontSize).val() + 'px');
-	$(contentContainer).css('background', '#' + $(ccBackground).val());
-	$(contentContainer).css('max-width', $(ccWidth).val() + 'px');
-	$(contentContainer).css('padding', $(ccPadding).val() + 'px');
+	$(bodyBackground).val(template.globals.bodyBackground);
+	$(bodyTextColor).val(template.globals.bodyTextColor);
+	$(bodyLinkColor).val(template.globals.bodyLinkColor);
+	$(bodyFontSize).val(template.globals.bodyFontSize);
+	$(ccBackground).val(template.globals.contentContainerBackground);
+	$(ccWidth).val(template.globals.contentContainerWidth);
+	$(ccPadding).val(template.globals.contentContainerPadding);
 
 	//defint event handlers
 	$('.ctrl-expando').click(function(){
@@ -70,6 +75,16 @@ $(document).ready(function() {
 
 	$('.module-add').click(function() {
 		var module = $(this).attr('module');
-		template.addModule(module);
+		var moduleElement = template.addModule(module);
+		$(moduleElement).click(function() {
+			if (!$(this).attr('selected')) {
+				$('.module').removeAttr('selected');
+				$(this).attr('selected', 'true');
+				//pull settings in the side pane
+				var index = $(this).attr('index');
+				var focusModule = template.getModule(parseInt(index));
+				
+			}
+		});
 	});
 });
