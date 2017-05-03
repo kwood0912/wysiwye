@@ -2,7 +2,7 @@ var bodyBackground, bodyTextColor, bodyLinkColor, bodyFontSize;
 var template = null;
 $(document).ready(function() {
 	//initialize gui variables
-	template = new wysiwye();
+	template = new wysiwye($('#contentContainer tr td'));
 	bodyBackground = $('#bodybg');
 	bodyTextColor = $('#bodytxtc');
 	bodyLinkColor = $('#bodyLinkColor');

@@ -125,3 +125,7 @@ html, body {
 	box-sizing: border-box;
 	color: #777;
 }
+
+.module:hover {
+	border: 2px solid #00F;
+}
