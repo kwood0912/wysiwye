@@ -1,8 +1,16 @@
 var bodyBackground, bodyTextColor, bodyLinkColor, bodyFontSize, body, contentContainer, ccBackground, ccWidth, ccPadding;
+var imgSrc, imgBg, imgPadding;
+var txtBg, txtPadding;
+var btnColor, btnBdrColor, btnFntColor, btnWidth, btnHeight, btnRadius, btnFntSize, btnText, btnUrl, btnAlign, btnBg, btnPadding;
 var template = null;
 
 function changeSettingsView(type) {
-
+	$('.module-settings').hide();
+	if (type) {
+		$('.module-settings[module="' + type + '"]').show();
+	} else {
+		$('.module-settings[module="none"]').show();
+	}
 }
 
 $(document).ready(function() {
@@ -17,6 +25,9 @@ $(document).ready(function() {
 	ccBackground = $('#ccbg');
 	ccWidth = $('#ccWidth');
 	ccPadding = $('#ccPadding');
+
+
+
 
 	//set variables
 	$(bodyBackground).val(template.globals.bodyBackground);
@@ -83,7 +94,7 @@ $(document).ready(function() {
 				//pull settings in the side pane
 				var index = $(this).attr('index');
 				var focusModule = template.getModule(parseInt(index));
-				
+				changeSettingsView(focusModule.type);
 			}
 		});
 	});
