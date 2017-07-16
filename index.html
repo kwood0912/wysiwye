@@ -2,16 +2,23 @@
 <html>
 <head>
 	<title>WYSIWYE E-mail Template Creator</title>
+	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript" src="jscolor.min.js"></script>
+	<script type="text/javascript" src="tinymce/tinymce.min.js"></script>
 	<script type="text/javascript" src="wysiwye.js"></script>
 	<script type="text/javascript" src="site.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="ctrl-panel">
-			<h2>Settings</h2>
+			<h2>Template Creator</h2>
+			<div style="margin-bottom: 8px;">
+				<button id="saveBtn" class="btn-green">Save Template</button>
+				<span style="width: 15px;"></span>
+				<button id="loadBtn" class="btn-blue">Load Template</button>
+			</div>
 			<div class="ctrl-expando" expand-content="#expando1">
 				<div class="caret arrow-right"></div>
 				<div class="expando-text">Module Styles</div>
@@ -23,6 +30,20 @@
 						<tr>
 							<td>Image URL</td>
 							<td><input id="imgSrc" type="text" class="input" name="imgsrc" placeholder="source url"></td>
+						</tr>
+						<tr>
+							<td>Width</td>
+							<td><input id="imgWidth" type="text" class="input" name="imgwidth" value="auto" style="width: 40px" /></td>
+						</tr>
+						<tr>
+							<td>Alignment</td>
+							<td>
+								<select id="imgAlign" type="text" class="input" name="imgalign">
+									<option value="left">left</option>
+									<option value="center" selected>center</option>
+									<option value="right">right</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td>Background Color</td>
@@ -37,6 +58,24 @@
 				<div class="module-settings" style="display: none;" module="text">
 					<table class="input-table">
 						<tr>
+							<td>Font Size</td>
+							<td><input id="txtFntSize" class="input" style="width: 30px" type="text" name="txtfntsize" value="" /></td>
+						</tr>
+						<tr>
+							<td>Font Color</td>
+							<td><input id="txtFntColor" type="text" class="jscolor" name="txtfntcolor" value="" /></td>
+						</tr>
+						<tr>
+							<td>Alignment</td>
+							<td>
+								<select id="txtAlign" class="input" name="txtalign">
+									<option value="left">left</option>
+									<option value="center">center</option>
+									<option value="right">right</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
 							<td>Background Color</td>
 							<td><input id="txtBg" type="text" class="jscolor" name="txtbg" value="" /></td>
 						</tr>
@@ -45,6 +84,9 @@
 							<td><input id="txtPadding" class="input" style="width: 30px" type="text" name="txtPadding" value="" /></td>
 						</tr>
 					</table>
+					<div>
+						<button id="txtEditBtn" class="btn-blue">Edit Content</button>
+					</div>
 				</div>
 				<div class="module-settings" style="display: none;" module="button">
 					<table class="input-table">
@@ -61,33 +103,33 @@
 							<td><input id="btnFntColor" type="text" class="jscolor" name="btnfntcolor" value="" /></td>
 						</tr>
 						<tr>
-							<td>Width</td> 
-							<td><input id="btnWidth" type="text" style="width: 30px;" name="btnwidth" value="" /></td>
-						</tr>
-						<tr>
-							<td>Height</td>
-							<td><input id="btnHeight" type="text" style="width: 30px;" name="btnheight" value="" /></td>
-						</tr>
-						<tr>
 							<td>Border Radius</td>
-							<td><input id="btnRadius" type="text" style="width: 30px;" name="btnradius" value="" /></td>
+							<td><input id="btnRadius" type="text" class="input" style="width: 30px;" name="btnradius" value="" /></td>
 						</tr>
 						<tr>
 							<td>Font Size</td>
-							<td><input id="btnFntSize" type="text" style="width: 30px;" name="btnfntsize" value="" /></td>
+							<td><input id="btnFntSize" type="text" class="input" style="width: 30px;" name="btnfntsize" value="" /></td>
+						</tr>
+						<tr>
+							<td>Top/Bottom Padding</td>
+							<td><input id="btnPaddingTB" class="input" class="input" style="width: 30px" type="text" name="btnPaddingTB" value="" /></td>
+						</tr>
+						<tr>
+							<td>Left/Right Padding</td>
+							<td><input id="btnPaddingLR" class="input" class="input" style="width: 30px" type="text" name="btnPaddingLR" value="" /></td>
 						</tr>
 						<tr>
 							<td>Button Text</td>
-							<td><input id="btnText" type="text" name="btntext" value="" /></td>
+							<td><input id="btnText" type="text" class="input" name="btntext" value="" /></td>
 						</tr>
 						<tr>
 							<td>Button Url</td>
-							<td><input id="btnUrl" type="text" name="btnurl" value="" /></td>
+							<td><input id="btnUrl" type="text" class="input" name="btnurl" value="" /></td>
 						</tr>
 						<tr>
 							<td>Alignment</td>
 							<td>
-								<select id="btnAlign" name="btnalign">
+								<select id="btnAlign" name="btnalign" class="input">
 									<option value="left">left</option>
 									<option value="center">center</option>
 									<option value="right">right</option>
@@ -99,10 +141,72 @@
 							<td><input id="btnBg" type="text" class="jscolor" name="txtbg" value="" /></td>
 						</tr>
 						<tr>
-							<td>Padding</td>
-							<td><input id="btnPadding" class="input" style="width: 30px" type="text" name="btnPadding" value="" /></td>
+							<td>Container Padding</td>
+							<td><input id="btnContainerPadding" class="input" class="input" style="width: 30px" type="text" name="btnContainerPadding" value="" /></td>
+						</tr>
+
+					</table>
+				</div>
+				<div class="module-settings" style="display: none;" module="space">
+					<table class="input-table">
+						<tr>
+							<td>Background Color</td>
+							<td><input id="spaceColor" type="text" class="jscolor" name="spacecolor" value="" /></td>
+						</tr>
+						<tr>
+							<td>Height</td>
+							<td><input id="spaceHeight" type="text" class="input" style="width: 30px" name="spaceheight" value="" /></td>
 						</tr>
 					</table>
+				</div>
+				<div class="module-settings" style="display: none;" module="divider">
+					<table class="input-table">
+						<tr>
+							<td>Background Color</td>
+							<td><input id="divBg" type="text" class="jscolor" name="divbg" value="" /></td>
+						</tr>
+						<tr>
+							<td>Height</td>
+							<td><input id="divHeight" type="text" class="input" style="width: 30px" name="divheight" value="" /></td>
+						</tr>
+						<tr>
+							<td>Color</td>
+							<td><input id="divColor" type="text" class="jscolor" name="divcolor" value="" /></td>
+						</tr>
+						<tr>
+							<td>Padding</td>
+							<td><input id="divContainerPadding" type="text" class="input" style="width: 30px" name="divcontainerpadding" value="" /></td>
+						</tr>
+					</table>
+				</div>
+				<div class="module-settings" style="display: none;" module="columns">
+					<table class="input-table">
+						<tr>
+							<td>Background Color</td>
+							<td><input id="colBg" type="text" class="jscolor" name="colbg" value="" /></td>
+						</tr>
+						<tr>
+							<td>Number of Columns</td>
+							<td><input id="colNum" type="text" class="input" style="width: 30px" name="colNum" value="" /></td>
+						</tr>
+						<tr>
+							<td>Content Alignment</td>
+							<td>
+								<select id="colAlign" name="colalign" class="input">
+									<option value="left">left</option>
+									<option value="center">center</option>
+									<option value="right">right</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Padding</td>
+							<td><input id="colContainerPadding" type="text" class="input" style="width: 30px" name="colcontainerpadding" value="" /></td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<button id="deleteBtn" class="btn-red" style="display: none;">Delete Element</button>
 				</div>
 			</div>
 			<div class="ctrl-expando" expand-content="#expando2">
@@ -118,7 +222,7 @@
 					</div>
 					<div class="column">
 						<div class="module-add" module="text">
-							TEXT
+							WYSIWYG
 						</div>
 					</div>
 					<div class="column">
@@ -160,21 +264,6 @@
 							<td><label>Background Color</label></td>
 							<td><input id="bodybg" type="text" class="jscolor" name="bodybg" value="" /></td>
 						</tr>
-						<tr>
-							<td><label>Text Color</label></td>
-							<td><input id="bodytxtc" type="text" class="jscolor" name="bodytxtc" value=""></td>
-						</tr>
-						<tr>
-							<td><label>Link Color</label></td>
-							<td><input id="bodylnkc" type="text" class="jscolor" name="bodylnkc" value=""></td>
-						</tr>
-					</table>
-					<hr>
-					<table class="input-table">
-						<tr>
-							<td><label>Font Size</label></td>
-							<td><input id="bodyfntsize" type="text" class="input" style="width: 30px" name="bodyfntsize" value=""></td>
-						</tr>
 					</table>
 				</div>
 				<div class="ctrl-expando" expand-content="#expando5">
@@ -195,12 +284,29 @@
 							<td>Padding</td>
 							<td><input id="ccPadding" class="input" style="width: 30px" type="text" name="ccPadding" value="" /></td>
 						</tr>
+						<tr>
+							<td>Enable Shadow</td>
+							<td><input id="ccShadow" type="checkbox" name="ccshadow" class="input" checked /></td>
+						</tr>
 					</table>
 				</div>
 			</div>
+
 		</div>
 		<div class="content-panel">
 			<div id="body"></div>
+			<div id="upArrowBtn" class="arrow-btn">▲</div>
+			<div id="downArrowBtn" class="arrow-btn">▼</div>
+			<div class="overlay" style="display: none;">
+				<div class="center-absolute">
+					<textarea id="tmce"></textarea>
+					<div style="margin-top: 10px;">
+						<button id="txtSaveBtn" class="btn-green">Save & Close</button>
+						<span style="width: 10px;"></span>
+						<button id="closeMceBtn" class="btn-gray">Cancel</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
